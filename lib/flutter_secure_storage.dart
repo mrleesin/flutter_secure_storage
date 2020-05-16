@@ -31,6 +31,11 @@ class FlutterSecureStorage {
     return value;
   }
 
+  Future<bool> readBool({@required String key, IOSOptions iOptions, AndroidOptions aOptions}) async {
+    final bool value = await _channel.invokeMethod('readBool', <String, dynamic>{'key': key, 'options': _selectOptions(iOptions, aOptions)});
+    return value;
+  }
+
   /// Deletes associated value for the given [key].
   ///
   /// [key] shoudn't be null.
