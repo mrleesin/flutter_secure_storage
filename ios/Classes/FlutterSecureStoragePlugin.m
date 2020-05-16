@@ -36,6 +36,13 @@ static NSString *const InvalidParameters = @"Invalid parameter's type";
     NSDictionary *arguments = [call arguments];
     NSDictionary *options = [arguments[@"options"] isKindOfClass:[NSDictionary class]] ? arguments[@"options"] : nil;
 
+    if ([@"readBool" isEqualToString:call.method]) {
+        NSString *key = arguments[@"key"];
+        NSString *groupId = options[@"groupId"];
+        BOOL *value = [self read:key forGroup:groupId];
+
+        result(value);
+    } else
     if ([@"read" isEqualToString:call.method]) {
         NSString *key = arguments[@"key"];
         NSString *groupId = options[@"groupId"];
