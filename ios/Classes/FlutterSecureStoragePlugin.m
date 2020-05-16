@@ -39,7 +39,7 @@ static NSString *const InvalidParameters = @"Invalid parameter's type";
     if ([@"readBool" isEqualToString:call.method]) {
         NSString *key = arguments[@"key"];
         NSString *groupId = options[@"groupId"];
-        BOOL *value = [self read:key forGroup:groupId];
+        NSString *value = [self read:key forGroup:groupId];
 
         result(value);
     } else
@@ -150,6 +150,9 @@ static NSString *const InvalidParameters = @"Invalid parameter's type";
     NSString *value;
     if (status == noErr){
         NSData *data = (__bridge NSData*)resultData;
+
+        printf("OBJC %s", data);
+
         value = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     }
     
