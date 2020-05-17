@@ -159,6 +159,29 @@ static NSString *const InvalidParameters = @"Invalid parameter's type";
     return value;
 }
 
+- (NSNumber *)readBool:(NSString *)key forGroup:(NSString *)groupId {
+    NSMutableDictionary *search = [self.query mutableCopy];
+    if(groupId != nil) {
+     search[(__bridge id)kSecAttrAccessGroup] = groupId;
+    }
+    search[(__bridge id)kSecAttrAccount] = key;
+    search[(__bridge id)kSecReturnData] = (__bridge id)kCFBooleanTrue;
+
+    CFDataRef resultData = NULL;
+
+    OSStatus status;
+    status = SecItemCopyMatching((__bridge CFDictionaryRef)search, (CFTypeRef*)&resultData);
+    NSNumber *value;
+    if (status == noErr){
+        NSData *data = (__bridge NSData*)resultData;
+        value = [NSNumber numberWithInt:[string [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding]]];
+
+        NSLog(value) ;
+    }
+
+    return value;
+}
+
 - (void)delete:(NSString *)key forGroup:(NSString *)groupId {
     NSMutableDictionary *search = [self.query mutableCopy];
     if(groupId != nil) {
