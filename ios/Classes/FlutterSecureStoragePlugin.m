@@ -151,7 +151,7 @@ static NSString *const InvalidParameters = @"Invalid parameter's type";
     if (status == noErr){
         NSData *data = (__bridge NSData*)resultData;
 
-        printf("OBJC %s", data);
+//         printf("OBJC %s", data);
 
         value = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     }
